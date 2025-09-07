@@ -1,0 +1,48 @@
+<table mat-table [dataSource]="dataSource">
+
+  <!-- Coluna fixa: ForecastWasMade -->
+  <ng-container matColumnDef="forecastWasMade">
+    <th mat-header-cell *matHeaderCellDef> Feita em </th>
+    <td mat-cell *matCellDef="let row"> {{ row.forecastWasMade }} </td>
+  </ng-container>
+
+  <!-- Colunas dinâmicas -->
+  @for (column of columnsName; track column) {
+    <ng-container [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ column }}
+      </th>
+      <td mat-cell *matCellDef="let row">
+
+        <!-- Pega a previsão do dia correspondente -->
+        @for (card of row.forecastsDayInfoCards; track card.dayCode) {
+          @if (column.includes(card.dayCode.toString().substring(6))) {
+            <!-- lista de fontes -->
+            @for (item of card.items; track item.sources) {
+<p> {{card.dayCode }}</p>
+                <div class="forecast-source">
+                    <strong>Fonte {{ mapNameSource(item.sources) }}:</strong>
+                    {{ item.minTemperature }}°C - {{ item.maxTemperature }}°C
+                    <br />
+                    <em>{{ item.description }}</em>
+                </div>
+
+              <!-- <app-forecast-source
+                [source]="item.sources"
+                [min]="item.minTemperature"
+                [max]="item.maxTemperature"
+                [description]="item.description">
+              </app-forecast-source> -->
+            }
+          }
+        }
+
+      </td>
+    </ng-container>
+  }
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+</table>
