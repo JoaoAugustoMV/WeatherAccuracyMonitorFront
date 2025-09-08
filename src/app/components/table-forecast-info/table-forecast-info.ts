@@ -20,7 +20,7 @@ export interface PeriodicElement {
   styleUrl: './table-forecast-info.css'
 })
 export class TableForecastInfo implements OnInit {
-  columnsName: string[] = ["0"];
+  columnsName: string[] = [];
   dataSource: LineDayForecastData[] = []  
   
   constructor(private infoForecastService: InfoForecastService) {}
@@ -28,7 +28,8 @@ export class TableForecastInfo implements OnInit {
   ngOnInit(): void {
     this.infoForecastService.getWeekInfo().subscribe(
       (data)=>{
-        this.columnsName = this.columnsName.concat(data.columnsName)
+        this.columnsName = this.generateForecastDaysList()
+        // this.columnsName = this.columnsName.concat(data.columnsName)
         this.dataSource = data.linesData
         
       }
@@ -50,4 +51,38 @@ export class TableForecastInfo implements OnInit {
   mapNameSource(sourceId: number): string{    
     return ForecastSourceNames[sourceId]
   }
+
+  generateForecastDaysList(): string[] {
+    const today = new Date();
+    const formatter = new Intl.DateTimeFormat("pt-BR", { weekday: "long" });
+
+    const list: string[] = [];
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+
+      let weekday = formatter.format(date);
+      // capitalizar a primeira letra
+      weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+      let label = `${day}/${month} ${weekday}`;
+
+      if (i === 0) {
+        label += "(Hoje)";
+      } else if (i === 1) {
+        label += "(Amanhã)";
+      }
+
+      list.push(label);
+    }
+
+    return list;
+  }
+
+
+
 }

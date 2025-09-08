@@ -2,3 +2,37 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Tema Claro (default) */
+:root {
+  --primary-color: #1976d2;
+  --primary-text: #222;
+  --background: #ffffff;
+  --header-bg: var(--primary-color);
+  --header-text: #000000;
+  --row-alt: #f9f9f9;
+  --row-hover: #f1f7ff;
+  --card-bg: #ffffff;
+  --card-border: #ddd;
+}
+
+/* Tema Escuro */
+:root.dark-theme {
+  --primary-color: #0278d8;
+  --primary-text: #f5f5f5;
+  --background: #363636;
+  --header-bg: #1f1f1f;
+  --header-text: #e0e0e0;
+  --row-alt: #363636;
+  --row-hover: #2a2a2a;
+  --card-bg: #272727;
+  --card-border: #000000;
+}
+
+/* Aplicação global */
+body {
+  background-color: var(--background);
+  color: var(--primary-text);
+  transition: background 0.3s, color 0.3s;
+}

@@ -6,8 +6,9 @@ export interface WeekInfo {
 }
 
 export interface LineDayForecastData {
+    dayX: number, 
     forecastWasMade: number,
-    forecastDayInfoCard: DayForecastDataCard[]
+    forecastsDayInfoCards: DayForecastDataCard[]
 }
 
 export interface DayForecastDataCard{

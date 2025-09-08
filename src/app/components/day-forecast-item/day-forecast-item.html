@@ -1,4 +1,8 @@
-<strong>{{ sourceNames[item.sources] }}:</strong>
-{{ item.minTemperature }}°C - {{ item.maxTemperature }}°C
-<br />
-<!-- {{ item.description }} -->
+<div class="forecast-card" [matTooltip]="item.description">
+  <div class="forecast-header">
+    <span class="source">{{ sourceNames[item.sources] }}</span>
+    <span class="temp-range">
+      {{ item.minTemperature }}°C – {{ item.maxTemperature }}°C
+    </span>
+  </div>
+</div>

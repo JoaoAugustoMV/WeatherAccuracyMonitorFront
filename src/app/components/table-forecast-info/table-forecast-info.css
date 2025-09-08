@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+th {
+  background: var(--primary-color);
+  color: var(--header-text);
+  text-align: center;
+  padding: 12px;
+  font-size: 0.95rem;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--card-border);
+  color: var(--primary-text);
+}
+
+/* Listrado */
+tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Hover */
+tr:hover td {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* Responsivo: scroll horizontal em telas pequenas */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}

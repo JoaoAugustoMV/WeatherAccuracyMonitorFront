@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { DayForecastDataItem } from '../../models/WeekInfo';
 import { ForecastSourceNames } from '../../models/Sources';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-day-forecast-item',
-  imports: [],
+  imports: [MatTooltip],
   templateUrl: './day-forecast-item.html',
   styleUrl: './day-forecast-item.css'
 })
