@@ -28,8 +28,7 @@ export class TableForecastInfo implements OnInit {
   ngOnInit(): void {
     this.infoForecastService.getWeekInfo().subscribe(
       (data)=>{
-        this.columnsName = this.generateForecastDaysList()
-        // this.columnsName = this.columnsName.concat(data.columnsName)
+        this.columnsName = this.generateForecastDaysList()        
         this.dataSource = data.linesData
         
       }
