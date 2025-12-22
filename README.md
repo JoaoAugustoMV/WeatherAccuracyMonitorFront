@@ -1,59 +1,82 @@
-# WeatherAccuracyMonitorFront
+# Weather Accuracy Monitor (VerifiClima)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+**Weather Accuracy Monitor** is a platform designed to **collect, consolidate, and analyze the accuracy of weather forecasts** from multiple providers, comparing forecasts made at different moments with the actual observed data.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🧠 Architecture Overview
 
-```bash
-ng serve
-```
+The solution is divided into three main parts:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 1. Batch / ETL (AWS)
+- Runs **once per day**
+- Responsible for:
+  - Fetching forecasts from multiple providers
+  - Normalizing incoming data
+  - Persisting historical forecast records
+- Implemented as an **AWS Lambda (.NET 8)**
+- Orchestrated using **EventBridge (cron)**
+- Designed to evolve into a **Data Lake architecture**
 
-## Code scaffolding
+### 2. Backend API
+- REST API responsible for:
+  - Exposing aggregated data to the frontend
+  - Applying grouping and ordering rules (DayX, dates, sources)
+- Built with **.NET 8**
+- Domain-oriented architecture with clear layering
+- Ready for horizontal scaling
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 3. Web Frontend
+- Built with **Angular (modern syntax using @for / @if)**
+- Dynamic table where:
+  - Columns represent forecasted days
+  - Rows represent when the forecast was made (DayX)
+- Supports:
+  - Light and dark themes
+  - Responsive layout
+  - Component-based forecast rendering per provider
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🧱 Tech Stack
 
-```bash
-ng generate --help
-```
+### Backend / Batch
+- .NET 8  
+    - Entity Framework
+- AWS 
+    - Lambda  
+    - AWS EC2(planned)
+    - DynamoDb(planned)
+- PostgreSQL(Supabase)  
 
-## Building
 
-To build the project run:
+### Frontend
+- Angular (standalone components)
+- Angular Material
+- Modern CSS (light/dark themes)
+- Responsive design
 
-```bash
-ng build
-```
+### Infrastructure & DevOps
+- Docker / Docker Compose
+- GitHub Actions
+- AWS SAM (local)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 📊 Data Modeling (Concept)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **DayX**: how many days before the real event the forecast was made  
+- **DayCode**: forecasted date (YYYYMMDD)  
+- **Sources**: multiple weather providers  
 
-```bash
-ng test
-```
+Comparison between:
+- Forecasted min/max temperatures
+- Real observed temperatures
+- Weather descriptions
 
-## Running end-to-end tests
+This model enables analysis such as:
+- “Which provider is more accurate with 1, 3, or 7 days ahead?”
+- “How accuracy degrades as the forecast horizon increases?”
+- “Which services tend to overestimate or underestimate temperatures?”
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
