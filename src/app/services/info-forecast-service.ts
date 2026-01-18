@@ -13,8 +13,6 @@ export class InfoForecastService {
   constructor(private http: HttpClient) {}
 
   getWeekInfo(): Observable<WeekInfo> {
-    console.log(this.apiUrl);
-    
     return this.http.get<WeekInfo>(this.apiUrl + "/InfoData/CurrentWeek");
   }
 }
