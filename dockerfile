@@ -14,9 +14,9 @@ RUN npm ci
 COPY . .
 
 # Build Angular application in PROD mode
-RUN npm install --save-dev @angular/cli
+RUN npm install -g @angular/cli
 
-RUN ./node_modules/@angular/cli/bin/ng build -c production
+RUN npm run build -c production
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine
