@@ -1,5 +1,3 @@
-ARG API_URL_BACKEND
-
 # Stage 1: Build the Angular application
 FROM node:alpine AS build
 
@@ -16,6 +14,7 @@ RUN npm ci
 COPY . .
 
 # Build Angular application in PROD mode
+RUN which npm || echo "npm not found"
 RUN npm run build -c production
 
 # Stage 2: Serve the application using Nginx
