@@ -14,6 +14,7 @@ RUN npm ci
 COPY . .
 
 # Build Angular application in PROD mode
+RUN which npx || echo "npx not found"
 RUN npx ng build -c production
 
 # Stage 2: Serve the application using Nginx
