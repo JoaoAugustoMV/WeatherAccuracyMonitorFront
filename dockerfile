@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Build Angular application in PROD mode
-RUN which npm || echo "npm not found"
+RUN which ng || echo "ng not found"
 RUN npm run build -c production
 
 # Stage 2: Serve the application using Nginx
