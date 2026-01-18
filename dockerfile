@@ -4,6 +4,8 @@ FROM node:alpine AS build
 # Setup the working directory
 WORKDIR /usr/src/app
 
+RUN npm cache clean --force
+
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
