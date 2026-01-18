@@ -14,8 +14,11 @@ RUN npm ci
 COPY . .
 
 # Build Angular application in PROD mode
-RUN which npx || echo "npx not found"
-RUN npx ng build -c production
+RUN npm install --save-dev @angular/cli
+
+RUN which ng || echo "ng not found"
+
+RUN npm run build -c production
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine
