@@ -54,7 +54,7 @@ jobs:
 
           sudo docker run -d \
             --name wam-front \
-            -p 80:80 \            
+            -p 4200:80 \            
             joaoaugustomv/weather-monitor-frontend
 
           echo "Deployment completed."
